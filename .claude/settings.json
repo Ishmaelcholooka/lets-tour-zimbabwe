@@ -1,0 +1,78 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git log*)",
+      "Bash(git diff*)",
+      "Bash(git branch*)",
+      "Bash(git stash list*)",
+      "Bash(ls*)",
+      "Bash(cat*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(find * -type f*)",
+      "Bash(grep*)",
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Bash(npx tsc --noEmit*)",
+      "Bash(npx eslint*)",
+      "Bash(npx prettier --check*)",
+      "Bash(npx prisma validate)",
+      "Bash(npx prisma format)",
+      "Bash(npx prisma studio)",
+      "Bash(npx prisma migrate status)",
+      "Bash(npx prisma migrate dev*)",
+      "Bash(npx prisma migrate reset --force)",
+      "Bash(npx prisma generate)",
+      "Bash(npx prisma db seed)",
+      "Bash(npx prisma db pull)",
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(npm run type-check)",
+      "Bash(npm run test*)",
+      "Bash(npm run test:unit*)",
+      "Bash(npm run test:integration*)",
+      "Bash(npm run test:e2e*)",
+      "Bash(npx jest*)",
+      "Bash(npx playwright test*)",
+      "Bash(npx playwright show-report)",
+      "Bash(npx shadcn@latest add*)",
+      "Bash(vercel env pull*)",
+      "Bash(vercel dev)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf*)",
+      "Bash(npx prisma migrate deploy)",
+      "Bash(vercel --prod)",
+      "Bash(npm publish*)",
+      "Bash(curl * | bash*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd c:/Users/sibon/Documents/Repos/lets-tour-zimbabwe && npx tsc --noEmit 2>&1 | head -30"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd c:/Users/sibon/Documents/Repos/lets-tour-zimbabwe && npm run lint && npm run type-check"
+          }
+        ]
+      }
+    ]
+  }
+}

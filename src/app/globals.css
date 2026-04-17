@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Brand palette from logo ── */
+
+  /* Sunset orange (primary) */
+  --color-brand-orange-50: #fff7ed;
+  --color-brand-orange-100: #ffedd5;
+  --color-brand-orange-200: #fed7aa;
+  --color-brand-orange-300: #fdba74;
+  --color-brand-orange-400: #fb923c;
+  --color-brand-orange-500: #e8781a;
+  --color-brand-orange-600: #c2611a;
+  --color-brand-orange-700: #9a4c15;
+  --color-brand-orange-800: #7c3d12;
+  --color-brand-orange-900: #431407;
+
+  /* Amber gold (secondary) */
+  --color-brand-amber-50: #fffbeb;
+  --color-brand-amber-100: #fef3c7;
+  --color-brand-amber-200: #fde68a;
+  --color-brand-amber-300: #fcd34d;
+  --color-brand-amber-400: #fbbf24;
+  --color-brand-amber-500: #f5a623;
+  --color-brand-amber-600: #d97706;
+  --color-brand-amber-700: #b45309;
+  --color-brand-amber-800: #92400e;
+  --color-brand-amber-900: #451a03;
+
+  /* Forest green (dark foreground) */
+  --color-brand-forest-50: #f0fdf4;
+  --color-brand-forest-100: #dcfce7;
+  --color-brand-forest-200: #bbf7d0;
+  --color-brand-forest-300: #74b49e;
+  --color-brand-forest-400: #4ade80;
+  --color-brand-forest-500: #2d6a4f;
+  --color-brand-forest-600: #1e5c3e;
+  --color-brand-forest-700: #14472e;
+  --color-brand-forest-800: #0f3320;
+  --color-brand-forest-900: #0f2419;
+
+  /* Sage green (mid hills) */
+  --color-brand-sage-50: #f0fdf6;
+  --color-brand-sage-100: #dcfce9;
+  --color-brand-sage-200: #bbf7d4;
+  --color-brand-sage-300: #86efbf;
+  --color-brand-sage-400: #74b49e;
+  --color-brand-sage-500: #52a882;
+  --color-brand-sage-600: #3d8a68;
+  --color-brand-sage-700: #2d6a4f;
+  --color-brand-sage-800: #1e4d38;
+  --color-brand-sage-900: #143326;
+
+  /* Navy (text, logo badge) */
+  --color-brand-navy-50: #f0f4f8;
+  --color-brand-navy-100: #d9e2ec;
+  --color-brand-navy-200: #bcccdc;
+  --color-brand-navy-300: #9fb3c8;
+  --color-brand-navy-400: #829ab1;
+  --color-brand-navy-500: #627d98;
+  --color-brand-navy-600: #486581;
+  --color-brand-navy-700: #334e68;
+  --color-brand-navy-800: #243b53;
+  --color-brand-navy-900: #1b2b3b;
+
+  /* ── Semantic design tokens ── */
+  --color-primary: var(--color-brand-orange-500);
+  --color-primary-dark: var(--color-brand-orange-600);
+  --color-secondary: var(--color-brand-amber-500);
+  --color-accent: var(--color-brand-forest-500);
+  --color-background: #ffffff;
+  --color-foreground: var(--color-brand-navy-900);
+  --color-muted: #f8f9fa;
+  --color-muted-foreground: var(--color-brand-navy-500);
+  --color-border: #e2e8f0;
+
+  /* ── Typography ── */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  /* ── Radius ── */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+}
