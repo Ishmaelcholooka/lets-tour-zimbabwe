@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
@@ -16,6 +17,8 @@ const navLinks = [
 export function MarketingNav() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isTransparent = pathname === '/' && !scrolled && !isOpen
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -34,7 +37,7 @@ export function MarketingNav() {
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled || isOpen
+        !isTransparent
           ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100'
           : 'bg-transparent'
       )}
@@ -54,7 +57,7 @@ export function MarketingNav() {
             <span
               className={cn(
                 'font-bold text-sm sm:text-base lg:text-lg transition-colors duration-300',
-                scrolled || isOpen ? 'text-brand-navy-900' : 'text-white drop-shadow'
+                !isTransparent ? 'text-brand-navy-900' : 'text-white drop-shadow'
               )}
             >
               Let&apos;s Tour Zimbabwe
@@ -69,7 +72,7 @@ export function MarketingNav() {
                 href={link.href}
                 className={cn(
                   'text-sm font-medium transition-colors duration-200 hover:text-brand-orange-500',
-                  scrolled ? 'text-brand-navy-700' : 'text-white/90 drop-shadow'
+                  !isTransparent ? 'text-brand-navy-700' : 'text-white/90 drop-shadow'
                 )}
               >
                 {link.label}
@@ -83,7 +86,7 @@ export function MarketingNav() {
               href="/sign-in"
               className={cn(
                 'text-sm font-medium px-3 lg:px-4 py-2 rounded-lg transition-colors duration-200',
-                scrolled
+                !isTransparent
                   ? 'text-brand-navy-700 hover:text-brand-orange-500'
                   : 'text-white/90 hover:text-white drop-shadow'
               )}
@@ -103,7 +106,7 @@ export function MarketingNav() {
             onClick={() => setIsOpen(!isOpen)}
             className={cn(
               'md:hidden p-2 rounded-lg transition-colors',
-              scrolled || isOpen ? 'text-brand-navy-700' : 'text-white'
+              !isTransparent ? 'text-brand-navy-700' : 'text-white'
             )}
             aria-label="Toggle menu"
             aria-expanded={isOpen}

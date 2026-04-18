@@ -1,16 +1,12 @@
 // src/app/(marketing)/plan/page.tsx
 import type { Metadata } from 'next'
-import { ComingSoon } from '@/components/shared/coming-soon'
+import { PlannerWizard } from '@/components/planner/planner-wizard'
 
-export const metadata: Metadata = { title: 'Plan a Tour' }
+export const metadata: Metadata = {
+  title: 'Plan a Tour',
+  description: 'Build your perfect Zimbabwe itinerary — pick destinations, choose activities, and get an instant quote.',
+}
 
 export default function PlanPage() {
-  return (
-    <ComingSoon
-      title="Tour Planner"
-      description="Build your perfect Zimbabwe itinerary — pick destinations, choose providers, get instant pricing. Launching very soon."
-      backHref="/destinations"
-      backLabel="Browse Destinations"
-    />
-  )
+  return <PlannerWizard />
 }

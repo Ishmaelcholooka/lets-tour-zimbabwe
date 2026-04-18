@@ -1,0 +1,391 @@
+// src/lib/data/itinerary-items.ts
+
+export type ActivityCategory = 'activity' | 'tour' | 'experience' | 'cultural' | 'adventure'
+
+export interface ItineraryItem {
+  id: string
+  destinationSlug: string
+  name: string
+  description: string
+  category: ActivityCategory
+  durationHours: number
+  priceUsd: number            // per person
+  specialRequirements?: string
+  bestTime?: string
+}
+
+export const itineraryItems: ItineraryItem[] = [
+  // ── Victoria Falls ──────────────────────────────────────────
+  {
+    id: 'vf-falls-tour',
+    destinationSlug: 'victoria-falls',
+    name: 'Victoria Falls Guided Tour',
+    description: 'Walk the rainforest trail with a licensed guide, view all 16 viewpoints of the falls, and learn the history of Mosi-oa-Tunya.',
+    category: 'tour',
+    durationHours: 3,
+    priceUsd: 40,
+    bestTime: 'Feb–Jun for maximum spray',
+  },
+  {
+    id: 'vf-rafting',
+    destinationSlug: 'victoria-falls',
+    name: 'Zambezi White-Water Rafting',
+    description: "Navigate the world-famous Grade 5 rapids below the falls on the Zambezi River — one of the top rafting experiences on the planet.",
+    category: 'adventure',
+    durationHours: 8,
+    priceUsd: 120,
+    specialRequirements: 'Must be able to swim. Min age 15.',
+    bestTime: 'Aug–Dec for full rapids',
+  },
+  {
+    id: 'vf-bungee',
+    destinationSlug: 'victoria-falls',
+    name: 'Victoria Falls Bridge Bungee Jump',
+    description: 'Leap 111 metres from the iconic Victoria Falls Bridge straddling the Zimbabwe–Zambia border, with the gorge thundering below you.',
+    category: 'adventure',
+    durationHours: 2,
+    priceUsd: 160,
+    specialRequirements: 'Weight 40–145 kg. No heart conditions.',
+  },
+  {
+    id: 'vf-sunset-cruise',
+    destinationSlug: 'victoria-falls',
+    name: 'Zambezi Sunset Cruise',
+    description: 'Glide along the upper Zambezi as the sun sets over the river, spotting hippos, crocodiles, and elephants from the comfort of a luxury boat.',
+    category: 'experience',
+    durationHours: 2.5,
+    priceUsd: 55,
+    bestTime: 'Year-round — best at 4 pm',
+  },
+  {
+    id: 'vf-helicopter',
+    destinationSlug: 'victoria-falls',
+    name: 'Flight of Angels Helicopter Tour',
+    description: 'Soar above the falls in a helicopter for a breathtaking aerial view of the full 1.7 km width of Victoria Falls and the Batoka Gorge.',
+    category: 'experience',
+    durationHours: 0.25,
+    priceUsd: 195,
+    bestTime: 'Feb–May for mist plumes',
+  },
+  {
+    id: 'vf-devils-pool',
+    destinationSlug: 'victoria-falls',
+    name: "Devil's Pool Swimming Experience",
+    description: "Swim to the natural rock pool at the very lip of the falls on Livingstone Island — one of the world's most thrilling natural swimming pools.",
+    category: 'adventure',
+    durationHours: 3,
+    priceUsd: 95,
+    specialRequirements: 'Strong swimmers only. Aug–Jan when water levels allow.',
+    bestTime: 'Sep–Jan',
+  },
+
+  // ── Hwange National Park ─────────────────────────────────────
+  {
+    id: 'hw-game-drive',
+    destinationSlug: 'hwange-national-park',
+    name: 'Full-Day Game Drive',
+    description: 'Spend the day in an open 4x4 with an expert guide, visiting key waterholes where massive elephant herds, lions, and wild dogs gather.',
+    category: 'tour',
+    durationHours: 8,
+    priceUsd: 85,
+    bestTime: 'Jun–Oct for wildlife concentration',
+  },
+  {
+    id: 'hw-night-drive',
+    destinationSlug: 'hwange-national-park',
+    name: 'Night Game Drive',
+    description: 'Venture into the bush after dark with a spotlight to find nocturnal wildlife — aardvark, civets, hyenas, and if lucky, a leopard on the hunt.',
+    category: 'adventure',
+    durationHours: 3,
+    priceUsd: 65,
+  },
+  {
+    id: 'hw-walking-safari',
+    destinationSlug: 'hwange-national-park',
+    name: 'Guided Walking Safari',
+    description: 'Track elephants and buffalo on foot with an armed professional guide. Learn to read the bush — tracks, dung, alarm calls, and vegetation signs.',
+    category: 'adventure',
+    durationHours: 4,
+    priceUsd: 75,
+    specialRequirements: 'Reasonable fitness required. Min age 12.',
+  },
+  {
+    id: 'hw-wild-dog',
+    destinationSlug: 'hwange-national-park',
+    name: 'African Wild Dog Tracking Experience',
+    description: "Hwange has one of Africa's best wild dog populations. Join a specialist guide using telemetry tracking to find these endangered painted wolves.",
+    category: 'experience',
+    durationHours: 5,
+    priceUsd: 110,
+    bestTime: 'May–Oct',
+  },
+  {
+    id: 'hw-bird',
+    destinationSlug: 'hwange-national-park',
+    name: 'Birding by 4x4 — 480 Species',
+    description: 'A specialist birding drive targeting Hwange\'s 480+ species including Kori bustard, Pel\'s fishing owl, and the elusive Bradfield\'s hornbill.',
+    category: 'tour',
+    durationHours: 5,
+    priceUsd: 70,
+  },
+
+  // ── Great Zimbabwe Ruins ─────────────────────────────────────
+  {
+    id: 'gz-guided-ruins',
+    destinationSlug: 'great-zimbabwe',
+    name: 'Great Zimbabwe Guided Heritage Tour',
+    description: 'Explore the Great Enclosure and Hill Complex with an expert heritage guide who brings the ancient Shona kingdom vividly to life.',
+    category: 'cultural',
+    durationHours: 3,
+    priceUsd: 25,
+    bestTime: 'Early morning for cooler temperatures',
+  },
+  {
+    id: 'gz-museum',
+    destinationSlug: 'great-zimbabwe',
+    name: 'Great Zimbabwe National Museum',
+    description: 'View the original Zimbabwe Birds soapstone sculptures, gold artefacts, and ceramics that tell the story of a civilisation that traded with China.',
+    category: 'cultural',
+    durationHours: 1.5,
+    priceUsd: 10,
+  },
+  {
+    id: 'gz-village',
+    destinationSlug: 'great-zimbabwe',
+    name: 'Living Culture Village Experience',
+    description: 'Visit a reconstructed Shona village near the ruins, watch traditional pottery-making, mbira music, and taste authentic Zimbabwean food.',
+    category: 'cultural',
+    durationHours: 2,
+    priceUsd: 20,
+  },
+  {
+    id: 'gz-lake',
+    destinationSlug: 'great-zimbabwe',
+    name: 'Lake Mutirikwi Boat Cruise',
+    description: 'A relaxing sunset cruise on the lake adjacent to the ruins, spotting hippos, crocs, and the beautiful backdrop of the stone walls at dusk.',
+    category: 'experience',
+    durationHours: 2,
+    priceUsd: 35,
+  },
+
+  // ── Lake Kariba ──────────────────────────────────────────────
+  {
+    id: 'lk-houseboat',
+    destinationSlug: 'lake-kariba',
+    name: 'Houseboat Sunset Cruise',
+    description: 'Drift across the inland sea on a fully-equipped houseboat as the sun sets behind the Matusadona mountains — hippos surface around you.',
+    category: 'experience',
+    durationHours: 3,
+    priceUsd: 65,
+  },
+  {
+    id: 'lk-tigerfish',
+    destinationSlug: 'lake-kariba',
+    name: 'Tigerfish Angling Charter',
+    description: "Fish for Kariba's famous tigerfish — one of Africa's most prized sport fish — with a licensed skipper and all tackle provided.",
+    category: 'activity',
+    durationHours: 6,
+    priceUsd: 90,
+    specialRequirements: 'Catch-and-release encouraged.',
+  },
+  {
+    id: 'lk-game-drive',
+    destinationSlug: 'lake-kariba',
+    name: 'Matusadona National Park Game Drive',
+    description: 'Drive into Matusadona along the lakeshore, where lions, elephants, and buffalo come to drink against the backdrop of dead trees rising from the water.',
+    category: 'tour',
+    durationHours: 5,
+    priceUsd: 75,
+  },
+  {
+    id: 'lk-birdwatch',
+    destinationSlug: 'lake-kariba',
+    name: 'Birdwatching by Boat',
+    description: 'Cruise the drowned forest searching for the African fish eagle, yellow-billed stork, and the vibrant malachite kingfisher.',
+    category: 'activity',
+    durationHours: 3,
+    priceUsd: 45,
+  },
+
+  // ── Matobo Hills ─────────────────────────────────────────────
+  {
+    id: 'mt-rhino',
+    destinationSlug: 'matobo-hills',
+    name: 'White Rhino Tracking on Foot',
+    description: 'Track white rhinos on foot in Matobo — home to one of Zimbabwe\'s largest rhino populations. Get within metres of these magnificent animals.',
+    category: 'adventure',
+    durationHours: 4,
+    priceUsd: 75,
+    specialRequirements: 'Moderate fitness. Min age 12.',
+    bestTime: 'May–Oct',
+  },
+  {
+    id: 'mt-rock-art',
+    destinationSlug: 'matobo-hills',
+    name: 'San Rock Art Guided Walk',
+    description: 'Visit Nswatugi and Pomongwe caves with a specialist guide to see 13,000-year-old San Bushman paintings — the largest concentration in the world.',
+    category: 'cultural',
+    durationHours: 3,
+    priceUsd: 40,
+  },
+  {
+    id: 'mt-worlds-view',
+    destinationSlug: 'matobo-hills',
+    name: "World's View Sunrise Hike",
+    description: "Climb to Cecil Rhodes' grave at World's View for a panoramic sunrise over the balancing boulders — one of Zimbabwe's most iconic views.",
+    category: 'adventure',
+    durationHours: 2,
+    priceUsd: 25,
+    bestTime: 'Early morning',
+  },
+  {
+    id: 'mt-boulder',
+    destinationSlug: 'matobo-hills',
+    name: 'Balancing Boulders Photography Tour',
+    description: "Explore the geological wonder of Matobo's balancing granite kopjes with a photography guide who knows the best lighting and angles.",
+    category: 'experience',
+    durationHours: 3,
+    priceUsd: 35,
+  },
+
+  // ── Eastern Highlands ─────────────────────────────────────────
+  {
+    id: 'eh-nyangani',
+    destinationSlug: 'eastern-highlands',
+    name: 'Mount Nyangani Summit Hike',
+    description: "Conquer Zimbabwe's highest peak (2,592 m) on a guided hike through montane grasslands and mysterious mist — allow 6–8 hours return.",
+    category: 'adventure',
+    durationHours: 7,
+    priceUsd: 45,
+    specialRequirements: 'Good fitness. Proper hiking boots required.',
+    bestTime: 'Apr–Sep',
+  },
+  {
+    id: 'eh-mutarazi',
+    destinationSlug: 'eastern-highlands',
+    name: 'Mutarazi Falls Viewpoint Trek',
+    description: "Hike to the viewpoint above Zimbabwe's highest waterfall (762 m), plunging into the Honde Valley below — a breathtaking sight.",
+    category: 'adventure',
+    durationHours: 4,
+    priceUsd: 35,
+    bestTime: 'Nov–Apr for peak flow',
+  },
+  {
+    id: 'eh-tea',
+    destinationSlug: 'eastern-highlands',
+    name: 'Aberfoyle Tea Estate Tour',
+    description: 'Tour the working Aberfoyle tea estate in the Honde Valley, learn the tea production process, and enjoy a tasting session overlooking the terraces.',
+    category: 'cultural',
+    durationHours: 2.5,
+    priceUsd: 20,
+  },
+  {
+    id: 'eh-vumba',
+    destinationSlug: 'eastern-highlands',
+    name: 'Vumba Botanical Gardens Walk',
+    description: 'Stroll through the misty Vumba Botanical Gardens, home to exotic orchids, giant tree ferns, and views stretching into Mozambique.',
+    category: 'experience',
+    durationHours: 2,
+    priceUsd: 15,
+  },
+  {
+    id: 'eh-fly-fish',
+    destinationSlug: 'eastern-highlands',
+    name: 'Fly Fishing on the Nyangombe River',
+    description: 'Cast for rainbow and brown trout on crystal-clear highland streams with a licensed guide — all equipment provided.',
+    category: 'activity',
+    durationHours: 4,
+    priceUsd: 55,
+  },
+
+  // ── Mana Pools ───────────────────────────────────────────────
+  {
+    id: 'mp-walking',
+    destinationSlug: 'mana-pools',
+    name: 'Wilderness Walking Safari',
+    description: "Walk unfenced wilderness on the Zambezi floodplain — one of Africa's last truly wild walking safari experiences. Elephants may be metres away.",
+    category: 'adventure',
+    durationHours: 5,
+    priceUsd: 150,
+    specialRequirements: 'Good fitness. Armed professional guide. Min age 16.',
+    bestTime: 'May–Oct',
+  },
+  {
+    id: 'mp-canoe',
+    destinationSlug: 'mana-pools',
+    name: 'Zambezi Canoe Safari',
+    description: 'Paddle canoes along the Zambezi River between islands teeming with hippos and crocs, stopping on sandbanks to watch elephants drink.',
+    category: 'adventure',
+    durationHours: 6,
+    priceUsd: 130,
+    specialRequirements: 'Ability to swim. Min age 14.',
+    bestTime: 'May–Oct',
+  },
+  {
+    id: 'mp-photographic',
+    destinationSlug: 'mana-pools',
+    name: 'Photographic Safari with Expert Guide',
+    description: "Mana Pools is Africa's top photographic destination. Join a specialist guide who knows the resident animals and best light for frame-worthy shots.",
+    category: 'experience',
+    durationHours: 8,
+    priceUsd: 180,
+  },
+  {
+    id: 'mp-fishing',
+    destinationSlug: 'mana-pools',
+    name: 'Zambezi Tiger Fishing',
+    description: 'Fish the mighty Zambezi for tigerfish and vundu catfish from the banks or a boat, with hippos surfacing nearby for company.',
+    category: 'activity',
+    durationHours: 5,
+    priceUsd: 95,
+  },
+
+  // ── Gonarezhou ───────────────────────────────────────────────
+  {
+    id: 'gz2-chilojo',
+    destinationSlug: 'gonarezhou',
+    name: 'Chilojo Cliffs Scenic Drive',
+    description: 'Drive along the red Chilojo Cliffs rising 180 m above the Runde River — one of Zimbabwe\'s most dramatic landscapes, often dotted with elephant.',
+    category: 'tour',
+    durationHours: 4,
+    priceUsd: 60,
+    bestTime: 'Jun–Oct',
+  },
+  {
+    id: 'gz2-elephant',
+    destinationSlug: 'gonarezhou',
+    name: 'Elephant Encounter Game Drive',
+    description: "Gonarezhou has the highest elephant density in Africa. Encounter vast herds on a specialist game drive with a guide who knows the park's elephant families.",
+    category: 'tour',
+    durationHours: 6,
+    priceUsd: 80,
+    bestTime: 'Jul–Oct',
+  },
+  {
+    id: 'gz2-walking',
+    destinationSlug: 'gonarezhou',
+    name: 'Remote Wilderness Walking Safari',
+    description: "Experience true African wilderness on foot in one of the continent's least-visited parks — no fences, no other tourists, pure wild Africa.",
+    category: 'adventure',
+    durationHours: 5,
+    priceUsd: 110,
+    specialRequirements: 'Good fitness. Armed guide. Min age 16.',
+  },
+  {
+    id: 'gz2-bird',
+    destinationSlug: 'gonarezhou',
+    name: "Birding Safari — Pel's Fishing Owl Search",
+    description: "Hunt for Gonarezhou's 450+ species including the elusive Pel's fishing owl, Narina trogon, and African broadbill with a specialist birding guide.",
+    category: 'activity',
+    durationHours: 5,
+    priceUsd: 70,
+  },
+]
+
+export function getItemsByDestination(slug: string): ItineraryItem[] {
+  return itineraryItems.filter((item) => item.destinationSlug === slug)
+}
+
+export function getItemById(id: string): ItineraryItem | undefined {
+  return itineraryItems.find((item) => item.id === id)
+}

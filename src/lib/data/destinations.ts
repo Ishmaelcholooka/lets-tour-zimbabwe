@@ -19,6 +19,7 @@ export interface Destination {
   difficulty: 'easy' | 'moderate' | 'challenging'
   priceRange: '$' | '$$' | '$$$'
   fromPriceUsd: number   // starting price per person in USD
+  coordinates: [number, number]  // [lat, lng]
   tags: string[]
   featured: boolean
 }
@@ -47,6 +48,7 @@ export const destinations: Destination[] = [
     difficulty: 'easy',
     priceRange: '$$$',
     fromPriceUsd: 85,
+    coordinates: [-17.9243, 25.8567],
     tags: ['UNESCO', 'Waterfall', 'Adventure', 'Rafting', 'Wildlife'],
     featured: true,
   },
@@ -73,6 +75,7 @@ export const destinations: Destination[] = [
     difficulty: 'easy',
     priceRange: '$$',
     fromPriceUsd: 65,
+    coordinates: [-19.0000, 26.4833],
     tags: ['Big Five', 'Safari', 'Elephants', 'Birds', 'Wild Dogs'],
     featured: true,
   },
@@ -99,6 +102,7 @@ export const destinations: Destination[] = [
     difficulty: 'easy',
     priceRange: '$',
     fromPriceUsd: 15,
+    coordinates: [-20.2744, 30.9333],
     tags: ['UNESCO', 'History', 'Archaeology', 'Culture', 'Shona'],
     featured: true,
   },
@@ -125,6 +129,7 @@ export const destinations: Destination[] = [
     difficulty: 'easy',
     priceRange: '$$',
     fromPriceUsd: 45,
+    coordinates: [-16.5167, 28.8000],
     tags: ['Fishing', 'Houseboat', 'Sunset', 'Wildlife', 'Birdwatching'],
     featured: true,
   },
@@ -151,6 +156,7 @@ export const destinations: Destination[] = [
     difficulty: 'moderate',
     priceRange: '$$',
     fromPriceUsd: 35,
+    coordinates: [-20.5500, 28.4833],
     tags: ['UNESCO', 'Rock Art', 'Rhino', 'Leopard', 'Hiking'],
     featured: false,
   },
@@ -177,6 +183,7 @@ export const destinations: Destination[] = [
     difficulty: 'moderate',
     priceRange: '$$',
     fromPriceUsd: 30,
+    coordinates: [-18.2167, 32.7500],
     tags: ['Hiking', 'Mountains', 'Tea', 'Waterfalls', 'Nature'],
     featured: false,
   },
@@ -203,6 +210,7 @@ export const destinations: Destination[] = [
     difficulty: 'challenging',
     priceRange: '$$$',
     fromPriceUsd: 120,
+    coordinates: [-15.9167, 29.3833],
     tags: ['Walking Safari', 'Canoe', 'UNESCO', 'Elephants', 'Wild Dogs'],
     featured: true,
   },
@@ -229,6 +237,7 @@ export const destinations: Destination[] = [
     difficulty: 'moderate',
     priceRange: '$$',
     fromPriceUsd: 55,
+    coordinates: [-21.5000, 31.7667],
     tags: ['Elephants', 'Remote', 'Cliffs', 'Transfrontier', 'Birds'],
     featured: false,
   },
