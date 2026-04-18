@@ -2,12 +2,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from 'lucide-react'
+import { CONTACT } from '@/lib/constants/contact'
 
 const footerLinks = {
   explore: [
     { label: 'Destinations', href: '/destinations' },
-    { label: 'Experiences', href: '/experiences' },
-    { label: 'Wildlife Safari', href: '/experiences/wildlife' },
+    { label: 'Group Tours & Events', href: '/events' },
+    { label: 'Tour Calendar 2026', href: '/events#calendar' },
     { label: 'Victoria Falls', href: '/destinations/victoria-falls' },
     { label: 'Great Zimbabwe', href: '/destinations/great-zimbabwe' },
   ],
@@ -28,7 +29,6 @@ const footerLinks = {
   company: [
     { label: 'About Us', href: '/about' },
     { label: 'How It Works', href: '/#how-it-works' },
-    { label: 'Blog', href: '/blog' },
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms of Service', href: '/terms' },
   ],
@@ -80,40 +80,58 @@ export function MarketingFooter() {
           </div>
 
           {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h3 className="font-semibold text-xs uppercase tracking-wider text-brand-amber-400 mb-3 sm:mb-4">
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </h3>
-              <ul className="space-y-2 sm:space-y-2.5">
-                {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-xs sm:text-sm text-brand-navy-300 hover:text-white transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {Object.entries(footerLinks).map(([category, links]) => {
+            const isProviders = category === 'providers'
+            return (
+              <div key={category}>
+                <h3 className="font-semibold text-xs uppercase tracking-wider text-brand-amber-400 mb-3 sm:mb-4 flex items-center gap-2">
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {isProviders && (
+                    <span className="text-[10px] font-bold bg-brand-orange-500/20 text-brand-orange-400 border border-brand-orange-500/30 px-1.5 py-0.5 rounded-full leading-none">
+                      Coming Soon
+                    </span>
+                  )}
+                </h3>
+                <ul className="space-y-2 sm:space-y-2.5">
+                  {links.map((link) => (
+                    <li key={link.href}>
+                      {isProviders ? (
+                        <span className="text-xs sm:text-sm text-brand-navy-600 cursor-not-allowed select-none">
+                          {link.label}
+                        </span>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-xs sm:text-sm text-brand-navy-300 hover:text-white transition-colors duration-200"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
         </div>
 
         {/* Contact bar */}
         <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-brand-navy-800 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-8 text-xs sm:text-sm text-brand-navy-300">
           <span className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-brand-orange-400 shrink-0" />
-            Harare, Zimbabwe
+            {CONTACT.address}
           </span>
-          <a href="mailto:hello@letstourzimbabwe.com" className="flex items-center gap-2 hover:text-white transition-colors">
+          <a href={CONTACT.emailHref} className="flex items-center gap-2 hover:text-white transition-colors">
             <Mail className="w-4 h-4 text-brand-orange-400 shrink-0" />
-            hello@letstourzimbabwe.com
+            {CONTACT.email}
           </a>
-          <a href="tel:+2637712345678" className="flex items-center gap-2 hover:text-white transition-colors">
+          <a href={CONTACT.phonePrimaryHref} className="flex items-center gap-2 hover:text-white transition-colors">
             <Phone className="w-4 h-4 text-brand-orange-400 shrink-0" />
-            +263 77 123 4567
+            {CONTACT.phonePrimaryIntl}
+          </a>
+          <a href={CONTACT.phoneSecondaryHref} className="flex items-center gap-2 hover:text-white transition-colors">
+            <Phone className="w-4 h-4 text-brand-orange-400 shrink-0" />
+            {CONTACT.phoneSecondaryIntl}
           </a>
         </div>
       </div>

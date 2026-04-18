@@ -251,7 +251,7 @@ export function StepQuote() {
             type="tel"
             value={phone}
             onChange={(e) => setContactInfo({ phone: e.target.value })}
-            placeholder="+263 77 123 4567"
+            placeholder="+263 71 637 5646"
             className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-brand-orange-500 transition-colors"
           />
         </div>
