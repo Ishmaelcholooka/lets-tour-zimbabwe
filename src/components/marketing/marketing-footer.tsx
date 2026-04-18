@@ -45,27 +45,27 @@ export function MarketingFooter() {
   return (
     <footer className="bg-brand-navy-900 text-white">
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Brand column */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12">
+          {/* Brand column — full width on mobile */}
+          <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-1">
+            <Link href="/" className="flex items-center gap-3 mb-5">
               <Image
                 src="/logo.jpeg"
                 alt="Let's Tour Zimbabwe"
-                width={52}
-                height={52}
+                width={44}
+                height={44}
                 className="rounded-full"
               />
-              <span className="font-bold text-base leading-tight">
+              <span className="font-bold text-sm leading-tight">
                 Let&apos;s Tour<br />Zimbabwe
               </span>
             </Link>
-            <p className="text-brand-navy-300 text-sm leading-relaxed mb-6">
+            <p className="text-brand-navy-300 text-sm leading-relaxed mb-5">
               Your gateway to Zimbabwe&apos;s wonders. Plan, book, and experience
               unforgettable tours with trusted local experts.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               {socials.map(({ icon: Icon, href, label }) => (
                 <Link
                   key={label}
@@ -82,15 +82,15 @@ export function MarketingFooter() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="font-semibold text-sm uppercase tracking-wider text-brand-amber-400 mb-4">
+              <h3 className="font-semibold text-xs uppercase tracking-wider text-brand-amber-400 mb-3 sm:mb-4">
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </h3>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2 sm:space-y-2.5">
                 {links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-brand-navy-300 hover:text-white transition-colors duration-200"
+                      className="text-xs sm:text-sm text-brand-navy-300 hover:text-white transition-colors duration-200"
                     >
                       {link.label}
                     </Link>
@@ -102,17 +102,17 @@ export function MarketingFooter() {
         </div>
 
         {/* Contact bar */}
-        <div className="mt-12 pt-8 border-t border-brand-navy-800 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 text-sm text-brand-navy-300">
+        <div className="mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-brand-navy-800 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-8 text-xs sm:text-sm text-brand-navy-300">
           <span className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-brand-orange-400 flex-shrink-0" />
+            <MapPin className="w-4 h-4 text-brand-orange-400 shrink-0" />
             Harare, Zimbabwe
           </span>
           <a href="mailto:hello@letstourzimbabwe.com" className="flex items-center gap-2 hover:text-white transition-colors">
-            <Mail className="w-4 h-4 text-brand-orange-400 flex-shrink-0" />
+            <Mail className="w-4 h-4 text-brand-orange-400 shrink-0" />
             hello@letstourzimbabwe.com
           </a>
           <a href="tel:+2637712345678" className="flex items-center gap-2 hover:text-white transition-colors">
-            <Phone className="w-4 h-4 text-brand-orange-400 flex-shrink-0" />
+            <Phone className="w-4 h-4 text-brand-orange-400 shrink-0" />
             +263 77 123 4567
           </a>
         </div>
@@ -120,7 +120,7 @@ export function MarketingFooter() {
 
       {/* Bottom bar */}
       <div className="border-t border-brand-navy-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-brand-navy-400">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-xs text-brand-navy-400">
           <span>© {new Date().getFullYear()} Let&apos;s Tour Zimbabwe. All rights reserved.</span>
           <span>Made with ❤️ in Zimbabwe</span>
         </div>

@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 
 export function CtaSection() {
   return (
-    <section className="py-20 lg:py-28 relative overflow-hidden">
+    <section className="py-14 sm:py-20 lg:py-28 relative overflow-hidden">
       {/* Background */}
       <div
         className="absolute inset-0"
@@ -21,32 +21,32 @@ export function CtaSection() {
       />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-4 sm:mb-6">
           Zimbabwe Is Calling.{' '}
           <span className="text-brand-amber-400">Answer It.</span>
         </h2>
-        <p className="text-white/80 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-white/80 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
           Join thousands of travellers, schools, and tour operators who are discovering Zimbabwe
           the smarter way. Start planning for free — no credit card required.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0">
           <Link
             href="/sign-up"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-2xl bg-brand-orange-500 text-white font-bold text-lg hover:bg-brand-orange-600 transition-all duration-200 shadow-2xl hover:shadow-brand-orange-500/40 hover:scale-105"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:px-10 sm:py-4 rounded-2xl bg-brand-orange-500 text-white font-bold text-sm sm:text-base lg:text-lg hover:bg-brand-orange-600 transition-all duration-200 shadow-2xl hover:shadow-brand-orange-500/40 hover:scale-105"
           >
             Start Planning Free
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </Link>
           <Link
             href="/providers/register"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/10 transition-all duration-200"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 sm:px-10 sm:py-4 rounded-2xl border-2 border-white/30 text-white font-semibold text-sm sm:text-base lg:text-lg hover:bg-white/10 transition-all duration-200"
           >
             Join as a Provider
           </Link>
         </div>
 
-        <p className="mt-8 text-white/50 text-sm">
+        <p className="mt-6 sm:mt-8 text-white/50 text-xs sm:text-sm">
           Free to browse · Secure payments · Cancel anytime
         </p>
       </div>

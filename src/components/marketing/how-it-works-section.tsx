@@ -42,48 +42,41 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-20 lg:py-28 bg-brand-navy-900">
+    <section id="how-it-works" className="py-14 sm:py-20 lg:py-28 bg-brand-navy-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-brand-amber-400 font-semibold text-sm uppercase tracking-wider mb-3">
+        <div className="text-center mb-10 sm:mb-16">
+          <p className="text-brand-amber-400 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-3">
             Simple by Design
           </p>
-          <h2 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
             How It Works
           </h2>
-          <p className="mt-4 text-brand-navy-300 text-lg max-w-2xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-brand-navy-300 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
             From idea to adventure in four simple steps. No phone calls, no spreadsheets —
             just seamless tour planning.
           </p>
         </div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {steps.map(({ step, icon: Icon, title, description, accent, border }) => (
             <div
               key={step}
-              className={`relative rounded-2xl border bg-brand-navy-800/50 backdrop-blur-sm p-6 ${border} group hover:border-brand-orange-500/50 transition-colors duration-300`}
+              className={`relative rounded-2xl border bg-brand-navy-800/50 backdrop-blur-sm p-5 sm:p-6 ${border} group hover:border-brand-orange-500/50 transition-colors duration-300`}
             >
-              {/* Step number */}
-              <span className="absolute top-4 right-4 text-5xl font-black text-white/5 group-hover:text-white/10 transition-colors duration-300 select-none">
+              <span className="absolute top-4 right-4 text-4xl sm:text-5xl font-black text-white/5 group-hover:text-white/10 transition-colors duration-300 select-none">
                 {step}
               </span>
 
-              {/* Icon */}
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${accent} mb-5`}>
-                <Icon className="w-6 h-6" />
+              <div className={`inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl ${accent} mb-4 sm:mb-5`}>
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
 
-              <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
-              <p className="text-brand-navy-300 text-sm leading-relaxed">{description}</p>
+              <h3 className="text-white font-bold text-base sm:text-lg mb-2">{title}</h3>
+              <p className="text-brand-navy-300 text-xs sm:text-sm leading-relaxed">{description}</p>
             </div>
           ))}
-        </div>
-
-        {/* Connector line (decorative, desktop) */}
-        <div className="hidden lg:flex items-center justify-center mt-10 gap-0 relative max-w-4xl mx-auto">
-          <div className="absolute top-1/2 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-orange-500/30 to-transparent -translate-y-1/2" />
         </div>
       </div>
     </section>

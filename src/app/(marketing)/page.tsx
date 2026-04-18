@@ -2,6 +2,7 @@
 import { HeroSection } from '@/components/marketing/hero-section'
 import { DestinationsSection } from '@/components/marketing/destinations-section'
 import { HowItWorksSection } from '@/components/marketing/how-it-works-section'
+import { TrustSection } from '@/components/marketing/trust-section'
 import { UserTypesSection } from '@/components/marketing/user-types-section'
 import { StatsSection } from '@/components/marketing/stats-section'
 import { TestimonialsSection } from '@/components/marketing/testimonials-section'
@@ -14,6 +15,7 @@ export default function HomePage() {
       <StatsSection />
       <DestinationsSection />
       <HowItWorksSection />
+      <TrustSection />
       <UserTypesSection />
       <TestimonialsSection />
       <CtaSection />

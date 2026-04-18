@@ -42,6 +42,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**.unsplash.com' },
       { protocol: 'https', hostname: '**.vercel-storage.com' },
+      { protocol: 'https', hostname: 'upload.wikimedia.org' },
     ],
   },
 }

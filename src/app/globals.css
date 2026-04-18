@@ -75,8 +75,8 @@
   --color-border: #e2e8f0;
 
   /* ── Typography ── */
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
 
   /* ── Radius ── */
   --radius-sm: 0.375rem;
