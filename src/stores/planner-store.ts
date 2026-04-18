@@ -1,12 +1,15 @@
 // src/stores/planner-store.ts
 'use client'
 import { create } from 'zustand'
-import type { AccommodationTier } from '@/lib/data/accommodation'
+import type { MealSlot } from '@/lib/data/meals'
 
-export type PlannerStep = 1 | 2 | 3 | 4 | 5
+export type PlannerStep = 1 | 2 | 3 | 4 | 5 | 6
+
+export type DayMeals = { breakfast: string[]; lunch: string[]; dinner: string[] }
 
 interface PlannerState {
   step: PlannerStep
+  maxStepReached: number
 
   // Step 1
   startingLocationId: string
@@ -21,10 +24,14 @@ interface PlannerState {
   // Step 3 — route-optimised + user-editable order
   orderedDestinationSlugs: string[]
 
-  // Step 4
-  accommodationTier: AccommodationTier | null
+  // Step 4 — Accommodation amenities
+  selectedSleepingType: string | null
+  selectedFacilities: string[]
 
-  // Step 5
+  // Step 5 — Meals (day index 1-based → meal option IDs)
+  dailyMeals: Record<number, DayMeals>
+
+  // Step 6 — Quote contact
   email: string
   phone: string
   notes: string
@@ -46,7 +53,11 @@ interface PlannerState {
   setOrderedDestinations: (slugs: string[]) => void
   reorderDestination: (fromIndex: number, toIndex: number) => void
 
-  setAccommodationTier: (tier: AccommodationTier) => void
+  setSleepingType: (id: string) => void
+  toggleFacility: (id: string) => void
+
+  toggleDayMealItem: (day: number, slot: MealSlot, itemId: string) => void
+  copyMealSlotToAllDays: (fromDay: number, slot: MealSlot) => void
 
   setContactInfo: (info: { email?: string; phone?: string; notes?: string }) => void
   setSubmitted: (val: boolean) => void
@@ -56,6 +67,7 @@ interface PlannerState {
 
 const initialState = {
   step: 1 as PlannerStep,
+  maxStepReached: 1,
   startingLocationId: '',
   selectedDestinationSlugs: [],
   groupSize: 2,
@@ -63,7 +75,9 @@ const initialState = {
   durationDays: 7,
   selectedActivityIds: {},
   orderedDestinationSlugs: [],
-  accommodationTier: null,
+  selectedSleepingType: null,
+  selectedFacilities: [],
+  dailyMeals: {},
   email: '',
   phone: '',
   notes: '',
@@ -74,7 +88,13 @@ export const usePlannerStore = create<PlannerState>((set) => ({
   ...initialState,
 
   setStep: (step) => set({ step }),
-  nextStep: () => set((s) => ({ step: Math.min(s.step + 1, 5) as PlannerStep })),
+
+  nextStep: () =>
+    set((s) => {
+      const next = Math.min(s.step + 1, 6) as PlannerStep
+      return { step: next, maxStepReached: Math.max(s.maxStepReached, next) }
+    }),
+
   prevStep: () => set((s) => ({ step: Math.max(s.step - 1, 1) as PlannerStep })),
 
   setStartingLocationId: (id) => set({ startingLocationId: id }),
@@ -88,7 +108,15 @@ export const usePlannerStore = create<PlannerState>((set) => ({
 
   setGroupSize: (n) => set({ groupSize: n }),
   setDepartureDate: (iso) => set({ departureDateIso: iso }),
-  setDurationDays: (n) => set({ durationDays: n }),
+
+  setDurationDays: (n) =>
+    set((s) => {
+      const pruned: Record<number, DayMeals> = {}
+      for (let day = 1; day <= n; day++) {
+        if (s.dailyMeals[day]) pruned[day] = s.dailyMeals[day]
+      }
+      return { durationDays: n, dailyMeals: pruned }
+    }),
 
   toggleActivity: (destinationSlug, activityId) =>
     set((s) => {
@@ -96,9 +124,7 @@ export const usePlannerStore = create<PlannerState>((set) => ({
       const updated = current.includes(activityId)
         ? current.filter((id) => id !== activityId)
         : [...current, activityId]
-      return {
-        selectedActivityIds: { ...s.selectedActivityIds, [destinationSlug]: updated },
-      }
+      return { selectedActivityIds: { ...s.selectedActivityIds, [destinationSlug]: updated } }
     }),
 
   setOrderedDestinations: (slugs) => set({ orderedDestinationSlugs: slugs }),
@@ -111,7 +137,35 @@ export const usePlannerStore = create<PlannerState>((set) => ({
       return { orderedDestinationSlugs: arr }
     }),
 
-  setAccommodationTier: (tier) => set({ accommodationTier: tier }),
+  setSleepingType: (id) =>
+    set((s) => ({ selectedSleepingType: s.selectedSleepingType === id ? null : id })),
+
+  toggleFacility: (id) =>
+    set((s) => ({
+      selectedFacilities: s.selectedFacilities.includes(id)
+        ? s.selectedFacilities.filter((f) => f !== id)
+        : [...s.selectedFacilities, id],
+    })),
+
+  toggleDayMealItem: (day, slot, itemId) =>
+    set((s) => {
+      const dayData = s.dailyMeals[day] ?? { breakfast: [], lunch: [], dinner: [] }
+      const current = dayData[slot]
+      const updated = current.includes(itemId)
+        ? current.filter((id) => id !== itemId)
+        : [...current, itemId]
+      return { dailyMeals: { ...s.dailyMeals, [day]: { ...dayData, [slot]: updated } } }
+    }),
+
+  copyMealSlotToAllDays: (fromDay, slot) =>
+    set((s) => {
+      const sourceItems = [...(s.dailyMeals[fromDay]?.[slot] ?? [])]
+      const updated = { ...s.dailyMeals }
+      for (let day = 1; day <= s.durationDays; day++) {
+        updated[day] = { ...(updated[day] ?? { breakfast: [], lunch: [], dinner: [] }), [slot]: sourceItems }
+      }
+      return { dailyMeals: updated }
+    }),
 
   setContactInfo: (info) =>
     set((s) => ({

@@ -5,8 +5,10 @@ import { CheckCircle, MapPin, Calendar, Users, Bed } from 'lucide-react'
 import { usePlannerStore } from '@/stores/planner-store'
 import { destinations } from '@/lib/data/destinations'
 import { getItemById } from '@/lib/data/itinerary-items'
-import { getTierBySlug } from '@/lib/data/accommodation'
+import { getSleepingTypeById, getFacilityById } from '@/lib/data/accommodation'
+import { getFoodItemById } from '@/lib/data/meals'
 import { getStartingLocationById } from '@/lib/data/starting-locations'
+import { calculateTripPrice } from '@/lib/utils/price'
 
 export function StepQuote() {
   const store = usePlannerStore()
@@ -16,7 +18,9 @@ export function StepQuote() {
   const {
     orderedDestinationSlugs,
     selectedActivityIds,
-    accommodationTier,
+    selectedSleepingType,
+    selectedFacilities,
+    dailyMeals,
     groupSize,
     departureDateIso,
     durationDays,
@@ -31,16 +35,13 @@ export function StepQuote() {
   } = store
 
   const startLoc = getStartingLocationById(startingLocationId)
-  const tier = accommodationTier ? getTierBySlug(accommodationTier) : null
-  const nights = Math.max(durationDays - 1, 1)
+  const sleepingType = selectedSleepingType ? getSleepingTypeById(selectedSleepingType) : null
 
   const allActivityIds = Object.values(selectedActivityIds).flat()
   const activityItems = allActivityIds.map((id) => getItemById(id)).filter(Boolean) as NonNullable<ReturnType<typeof getItemById>>[]
 
-  const activitiesPerPerson = activityItems.reduce((s, i) => s + i.priceUsd, 0)
-  const stayPerPerson = tier ? tier.pricePerNightUsd * nights : 0
-  const totalPerPerson = activitiesPerPerson + stayPerPerson
-  const totalGroup = totalPerPerson * Math.max(groupSize, 1)
+  const { activitiesPerPerson, accommodationPerPerson, mealsPerPerson, totalPerPerson, totalGroup, nights } =
+    calculateTripPrice({ selectedActivityIds, selectedSleepingType, selectedFacilities, dailyMeals, durationDays, groupSize })
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -52,10 +53,15 @@ export function StepQuote() {
       startingLocation: startLoc?.name,
       destinations: orderedDestinationSlugs.map((s) => destinations.find((d) => d.slug === s)?.name),
       activities: activityItems.map((i) => ({ name: i.name, priceUsd: i.priceUsd })),
-      accommodationTier,
+      sleepingType: selectedSleepingType,
+      facilities: selectedFacilities,
+      dailyMeals,
       groupSize,
       departureDateIso,
       durationDays,
+      activitiesPerPerson,
+      accommodationPerPerson,
+      mealsPerPerson,
       totalPerPerson,
       totalGroup,
       email,
@@ -110,11 +116,14 @@ export function StepQuote() {
           </div>
           <div className="flex items-center gap-2">
             <Bed className="w-4 h-4 text-brand-orange-400 shrink-0" />
-            <span className="text-white/80 capitalize">{tier?.label ?? 'No tier'}</span>
+            <span className="text-white/80">
+              {sleepingType ? sleepingType.label : 'No accommodation'}
+              {selectedFacilities.length > 0 && ` + ${selectedFacilities.length} extras`}
+            </span>
           </div>
         </div>
 
-        {/* Destinations */}
+        {/* Route */}
         <div>
           <p className="text-xs uppercase tracking-wider text-brand-navy-400 mb-1.5">Route</p>
           <div className="flex flex-wrap gap-1.5">
@@ -144,6 +153,44 @@ export function StepQuote() {
           </div>
         )}
 
+        {/* Accommodation */}
+        {sleepingType && (
+          <div>
+            <p className="text-xs uppercase tracking-wider text-brand-navy-400 mb-1.5">Accommodation</p>
+            <div className="text-xs text-white/80 space-y-0.5">
+              <p>{sleepingType.emoji} {sleepingType.label} — ${sleepingType.pricePerNightUsd}/person/night · {nights} nights</p>
+              {selectedFacilities.length > 0 && (
+                <p className="text-white/60">
+                  Facilities: {selectedFacilities.map((id) => getFacilityById(id)?.label).filter(Boolean).join(', ')}
+                </p>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Meals */}
+        {mealsPerPerson > 0 && (
+          <div>
+            <p className="text-xs uppercase tracking-wider text-brand-navy-400 mb-1.5">Meal Highlights</p>
+            <div className="text-xs text-white/70 space-y-0.5">
+              {Object.entries(dailyMeals).slice(0, 3).map(([day, meals]) => {
+                const allIds = [...meals.breakfast, ...meals.lunch, ...meals.dinner]
+                if (allIds.length === 0) return null
+                const dayTotal = allIds.reduce((s, id) => s + (getFoodItemById(id)?.priceUsd ?? 0), 0)
+                return (
+                  <p key={day}>
+                    Day {day}: {allIds.length} item{allIds.length !== 1 ? 's' : ''}
+                    {dayTotal > 0 && <span className="text-brand-orange-400 ml-1">+${dayTotal} / person</span>}
+                  </p>
+                )
+              })}
+              {Object.keys(dailyMeals).length > 3 && (
+                <p className="text-white/40">+ {Object.keys(dailyMeals).length - 3} more days…</p>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Price breakdown */}
         <div className="border-t border-brand-navy-700 pt-3 space-y-1">
           {activitiesPerPerson > 0 && (
@@ -152,10 +199,16 @@ export function StepQuote() {
               <span>${activitiesPerPerson.toLocaleString()} / person</span>
             </div>
           )}
-          {stayPerPerson > 0 && (
+          {accommodationPerPerson > 0 && (
             <div className="flex justify-between text-sm text-white/75">
-              <span>Accommodation ({nights} nights, {tier?.label})</span>
-              <span>${stayPerPerson.toLocaleString()} / person</span>
+              <span>Accommodation ({nights} nights)</span>
+              <span>${accommodationPerPerson.toLocaleString()} / person</span>
+            </div>
+          )}
+          {mealsPerPerson > 0 && (
+            <div className="flex justify-between text-sm text-white/75">
+              <span>Meals</span>
+              <span>${mealsPerPerson.toLocaleString()} / person</span>
             </div>
           )}
           <div className="flex justify-between text-base font-extrabold text-white pt-1">

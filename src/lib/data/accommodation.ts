@@ -100,3 +100,68 @@ export const accommodationTiers: TierOption[] = [
 export function getTierBySlug(tier: AccommodationTier): TierOption | undefined {
   return accommodationTiers.find((t) => t.tier === tier)
 }
+
+// ── Amenity system (Step 4) ──────────────────────────────────────
+
+export type SleepingTypeId =
+  | 'tent'
+  | 'dormitory'
+  | 'shared-room'
+  | 'private-room'
+  | 'ensuite'
+  | 'chalet'
+  | 'luxury-suite'
+
+export interface SleepingType {
+  id: SleepingTypeId
+  label: string
+  emoji: string
+  description: string
+  pricePerNightUsd: number
+}
+
+export type FacilityId =
+  | 'wifi'
+  | 'hot-shower'
+  | 'air-con'
+  | 'pool'
+  | 'kitchen'
+  | 'braai'
+  | 'laundry'
+  | 'parking'
+
+export interface Facility {
+  id: FacilityId
+  label: string
+  emoji: string
+  pricePerNightUsd: number
+}
+
+export const sleepingTypes: SleepingType[] = [
+  { id: 'tent',          label: 'Tent / Camping',    emoji: '⛺', description: 'Sleep under the stars in your own tent',            pricePerNightUsd: 15  },
+  { id: 'dormitory',     label: 'Dormitory',          emoji: '🛏️', description: 'Shared bunk-bed dormitory with fellow travellers',  pricePerNightUsd: 25  },
+  { id: 'shared-room',   label: 'Shared Room',        emoji: '🚪', description: 'Private room shared between 2–4 travellers',        pricePerNightUsd: 45  },
+  { id: 'private-room',  label: 'Private Room',       emoji: '🏠', description: 'Your own room with shared bathroom facilities',     pricePerNightUsd: 80  },
+  { id: 'ensuite',       label: 'En-suite Room',      emoji: '🛁', description: 'Private room with your own bathroom',               pricePerNightUsd: 120 },
+  { id: 'chalet',        label: 'Self-catering Chalet', emoji: '🏡', description: 'Private chalet with kitchenette and living area', pricePerNightUsd: 160 },
+  { id: 'luxury-suite',  label: 'Luxury Suite',       emoji: '💎', description: 'Luxury lodge suite with premium amenities',         pricePerNightUsd: 320 },
+]
+
+export const facilities: Facility[] = [
+  { id: 'wifi',       label: 'Wi-Fi',           emoji: '📶', pricePerNightUsd: 0 },
+  { id: 'hot-shower', label: 'Hot Shower',      emoji: '🚿', pricePerNightUsd: 0 },
+  { id: 'air-con',    label: 'Air Conditioning', emoji: '❄️', pricePerNightUsd: 5 },
+  { id: 'pool',       label: 'Swimming Pool',   emoji: '🏊', pricePerNightUsd: 8 },
+  { id: 'kitchen',    label: 'Kitchen Access',  emoji: '🍳', pricePerNightUsd: 5 },
+  { id: 'braai',      label: 'Braai / Fire Pit', emoji: '🔥', pricePerNightUsd: 3 },
+  { id: 'laundry',    label: 'Laundry Service', emoji: '👕', pricePerNightUsd: 4 },
+  { id: 'parking',    label: 'Secure Parking',  emoji: '🅿️', pricePerNightUsd: 2 },
+]
+
+export function getSleepingTypeById(id: string): SleepingType | undefined {
+  return sleepingTypes.find((t) => t.id === id)
+}
+
+export function getFacilityById(id: string): Facility | undefined {
+  return facilities.find((f) => f.id === id)
+}
